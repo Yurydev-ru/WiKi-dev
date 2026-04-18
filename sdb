@@ -1,0 +1,139 @@
+# Git‑workflow для удобной работы с проектом — прямо как в профессиональных командах.
+
+## Начало работы в команде.
+**Правильный подход к аккуратной архитектуре**
+
+- Как назвать новую ветку  
+- Как выстроить Git Flow под проект  
+- Как правильно вести feature‑ветки, hotfix‑ветки и релизы
+
+---
+
+## 1. 🎨 Красивые и понятные имена для веток
+
+> Ты работаешь над:
+- UI, 
+- SCSS‑архитектурой, 
+- компонентами, 
+- навигацией, 
+- типографикой
+
+**Именно поэтому имена должны быть:**
+
+- короткие  
+- читаемые  
+- отражающие задачу  
+- одинакового формата  
+
+**Вот лучшие варианты под твой проект:**
+
+### **Формат: `feature/<area>-<short-task>`**
+
+#### **Для UI / SCSS:**
+- `feature/ui-sidebar-fixes`
+- `feature/ui-footer-refactor`
+- `feature/ui-nav-improvements`
+- `feature/ui-typography-update`
+- `feature/ui-layout-cleanup`
+
+#### **Для компонентов:**
+- `feature/component-appnav`
+- `feature/component-menu-card`
+- `feature/component-footer`
+
+#### **Для страниц:**
+- `feature/page-catalog`
+- `feature/page-subcategories`
+- `feature/page-home-hero`
+
+#### **Для архитектуры:**
+- `feature/scss-tokens`
+- `feature/scss-mixins`
+- `feature/scss-global-refactor`
+
+---
+
+## 🧭 2. Git Flow - адаптированный, без лишней бюрократии.
+
+> Классический Git Flow слишком тяжёлый. Облегчённый Git Flow, идеально подходит для Nuxt‑проектов.
+
+## 🔹 Основные ветки
+- `main` — стабильная версия (деплой)
+- `develop` — рабочая ветка, куда вливаются все фичи
+
+## 🔹 Временные ветки
+- `feature/*` — работа над задачами
+- `hotfix/*` — срочные исправления прямо в `main`
+- `release/*` — подготовка релиза (опционально)
+
+---
+
+## 🛠 3. Как правильно вести feature‑ветки
+
+### **1. Создаёшь ветку от develop**
+```
+git checkout develop
+git pull
+git checkout -b feature/ui-sidebar-fixes
+```
+
+### **2. Работаешь, коммитишь, пушишь**
+```
+git add .
+git commit -m "Improve sidebar layout and fix spacing"
+git push -u origin feature/ui-sidebar-fixes
+```
+
+### **3. Когда закончил — создаёшь Pull Request → develop**
+Это даёт:
+
+- чистую историю  
+- возможность ревью  
+- отсутствие конфликтов  
+
+---
+
+# 🔥 4. Как вести hotfix‑ветки
+
+Используются, когда нужно срочно исправить баг в продакшене.
+
+### Шаги:
+```
+git checkout main
+git pull
+git checkout -b hotfix/fix-nav-bug
+```
+
+После исправления:
+
+```
+git commit -m "Fix nav bug in production"
+git push -u origin hotfix/fix-nav-bug
+```
+
+PR → `main`  
+и **обязательно** PR → `develop`, чтобы develop не отстал.
+
+---
+
+# 🚀 5. Как вести релизы (если нужно)
+
+Если проект растёт, можно включить релизные ветки:
+
+```
+git checkout develop
+git checkout -b release/1.2.0
+```
+
+В них:
+
+- финальная полировка  
+- версия  
+- changelog  
+
+После релиза:
+
+- merge → `main`
+- merge → `develop`
+
+---
